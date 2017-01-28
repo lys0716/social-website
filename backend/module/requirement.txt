@@ -1,0 +1,12 @@
+cassandra-driver==3.7.1
+click==6.7
+Flask==0.12
+futures==3.0.5
+itsdangerous==0.24
+Jinja2==2.9.4
+MarkupSafe==0.23
+mysql-connector==2.1.4
+pymongo==3.4.0
+redis==2.10.5
+six==1.10.0
+Werkzeug==0.11.15

@@ -44,8 +44,8 @@ var HomeCtrl = function($rootScope, $document, $timeout, $scope, $http, $state) 
   httpGet({}, 'http://127.0.0.1:5000/timelinedata')
 
   $scope.callData = function(){
-    httpPost({text:$scope.postText,time:Date()}, 'http://127.0.0.1:5000/timelinepost')
-    console.log("Post: " + $scope.postText + " at " + Date())
+    httpPost({text:$scope.postText,time:new Date().getTime()}, 'http://127.0.0.1:5000/timelinedata')
+    console.log("Post: " + $scope.postText + " at " + new Date().getTime())
     // $scope.postText = "";
     location.reload();
   }

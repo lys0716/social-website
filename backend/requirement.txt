@@ -1,0 +1,17 @@
+cassandra-driver==3.7.1
+click==6.7
+Flask==0.12
+Flask-Cors==3.0.2
+futures==3.0.5
+happybase==1.0.0
+itsdangerous==0.24
+Jinja2==2.9.4
+MarkupSafe==0.23
+mysql-connector==2.1.4
+ply==3.9
+pymongo==3.4.0
+redis==2.10.5
+simplejson==3.10.0
+six==1.10.0
+thriftpy==0.3.9
+Werkzeug==0.11.15
