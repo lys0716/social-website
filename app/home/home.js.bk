@@ -1,0 +1,41 @@
+'use strict';
+
+angular.module('myApp.home', ['ui.router'])
+
+// .config(function($stateProvider, $urlRouterProvider) {
+//   $stateProvider
+//   .state('home', {
+//     url: '/home',
+//     views: {
+//       'home': {
+//         templateUrl: 'home/home.html',
+//         controller: 'HomeCtrl'
+//       }
+//     }
+//   });
+// })
+
+.controller('HomeCtrl', ['$http','$scope',function($http,$scope) {
+  var httpPost = function(inputData, urlStr) {
+	$http({
+            method:'POST',
+            url:urlStr,
+            headers: {
+               'Content-Type': 'application/json;charset=utf-8'
+            },
+            data:inputData
+        })
+        .then(function(resp){
+            console.log(resp);
+        },function(error){
+            console.log(error);
+        });
+  };
+  //httpPost({}, 'http://127.0.0.1:5000/visitorCount')
+  $scope.callData = function($event){
+        $event.preventDefault();
+	var d = {username:'jay',password:'jay'};
+	var l = 'http://127.0.0.1:5000/Authenticate';
+	httpPost(d, l);
+    }
+}]);

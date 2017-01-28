@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp" class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>NoSQL Database Demo</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://d3js.org/d3.v4.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+  <!-- Optional theme -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+  <!-- 
+  angular timeline input
+  -->
+  <link rel="stylesheet" href="bower_components/angular-timeline/dist/angular-timeline.css" />
+  <!-- <link rel="stylesheet" href="../dist/angular-timeline-images.css" /> -->
+  <link rel="stylesheet" href="bower_components/angular-timeline/dist/angular-timeline-bootstrap.css" />
+  <link rel="stylesheet" href="bower_components/angular-timeline/dist/angular-timeline-animations.css" />
+
+
+  <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/normalize.css">
+  <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/main.css">
+  <link rel="stylesheet" href="app.css">
+  <script src="bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
+</head>
+<body>
+  <div class="container">
+  <div class="header clearfix">
+  <nav>
+  <ul class="nav nav-pills pull-right">
+  <li role="presentation"><a href="#!/home">TimeLine</a></li>
+  <li role="presentation"><a href="#!/signin">SignIn</a></li>
+  <li role="presentation"><a href="#!/gallery">Gallery</a></li>
+      <li role="presentation"><a href="#!/d3">RelationGraph</a></li>
+  </ul>
+  </nav>
+    <h3 class="text-muted">NoSQL Demo</h3>
+  </div>
+  <div ui-view></div>
+  <div ui-view="home"></div>
+  <div ui-view="signin"></div>
+  <div ui-view="gallery"></div>
+  <div ui-view="D3"></div>
+  <div ui-view="userinfo"></div>
+
+  <footer class="footer">
+    <p>Drived By AngularJS & Flask</p>
+  <p>&copy; Company 2016</p>
+  </footer>
+  
+  </div>
+
+  <script src="bower_components/angular/angular.js"></script>
+  <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+  <!-- <script src="bower_components/angular-route/angular-route.js"></script> -->
+  <!-- 
+  angular timeline javascript
+  -->
+  <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+  <script src="bower_components/angular-scroll-animate/dist/angular-scroll-animate.js"></script>
+  <script src="bower_components/angular-timeline/dist/angular-timeline.js"></script>
+
+  <script src="home/home.js"></script>
+  <script src="signin/signin.js"></script>
+  <script src="gallery/gallery.js"></script>
+  <script src="d3/d3.js"></script>
+  <script src="userinfo/userinfo.js"></script>
+  <script src="app.js"></script>
+  <script src="components/version/interpolate-filter.js"></script>
+
+
+</body>
+</html>

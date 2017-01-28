@@ -1,0 +1,51 @@
+<div class="container bootstrap snippet" ng-controller="HomeCtrl">
+  <div class="row">
+    <div class="col-md-offset-3 col-md-6 col-xs-12">
+      <div class="well well-sm well-social-post">
+        <form ng-submit="callData()">
+          <ul class="list-inline" id='list_PostActions'>
+            <li class='active'>Post Status</li>
+          </ul>
+          <textarea class="form-control" placeholder="What's in your mind?" ng-model="postText"></textarea>
+          <ul class='list-inline post-actions'>
+            <li><span class="glyphicon glyphicon-camera"></span></li>
+            <li><span class='glyphicon glyphicon-user'></span></li>
+            <li><span class='glyphicon glyphicon-map-marker'></span></li>
+            <li class='pull-right'><button class="btn btn-primary btn-xs" type="submit">Post</button></li>
+          </ul>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container-fluid">
+  <br/>
+  <timeline>
+    <!-- can also hard-code to side="left" or side="right" -->
+    <timeline-event ng-repeat="event in events" side="{{side}}">
+      <!-- uses angular-scroll-animate to give it some pop -->
+      <timeline-badge class="{{event.badgeClass}} timeline-hidden"
+                      when-visible="animateElementIn" when-not-visible="animateElementOut">
+        <i class="glyphicon {{event.badgeIconClass}}"></i>
+      </timeline-badge>
+
+      <!-- uses angular-scroll-animate to give it some pop -->
+      <timeline-panel class="{{event.badgeClass}} timeline-hidden"
+                      when-visible="animateElementIn" when-not-visible="animateElementOut">
+        <timeline-heading>
+          <h4>{{event.title}}</h4>
+
+          <p ng-if="event.when">
+            <small class="text-muted"><i class="glyphicon glyphicon-time"></i>{{event.when}}</small>
+          </p>
+          <p ng-if="event.titleContentHtml" ng-bind-html="event.titleContentHtml">
+          </p>
+        </timeline-heading>
+        <p ng-bind-html="event.contentHtml"></p>
+        <timeline-footer ng-if="event.footerContentHtml">
+          <span ng-bind-html="event.footerContentHtml"></span>
+        </timeline-footer>
+      </timeline-panel>
+    </timeline-event>
+  </timeline>
+</div>
