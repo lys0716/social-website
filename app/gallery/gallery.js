@@ -23,11 +23,4 @@ angular.module('myApp.gallery', [])
                 });
         };
         httpGet({}, "http://127.0.0.1:5000/gallery")
-        $scope.plusOne = function(index) {
-            $scope.products[index].likes += 1;
-        };
-        $scope.minusOne = function(index) {
-            $scope.products[index].dislikes += 1;
-        };
-
     }]);
