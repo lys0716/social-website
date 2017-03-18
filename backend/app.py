@@ -25,15 +25,19 @@ client = MongoClient('mongodb://%s' % (mongodb_endpoint))
 db = client.gallery
 
 # - cassandra parameter
-# - database schema
+# - keyspace
+#   - 'timeline'
+# - table
+#   - 'timeline_data1'
 # - Schema:
+# [angular_timeline_component]([table_column])
 # badgeClass(default)
-# badgeIconClass(type)
-# title(article_title)
-# when(time)
+# badgeIconClass(default)
+# title(default)
+# when(post_time)
 # contentHtml(cotent)
-# titleContentHtml(embed image)
-# footerContentHtml(externalLink)
+# titleContentHtml(embed_image_link)
+# footerContentHtml(external_link)
 contact_points = app.config['CONFIG_CASSANDRA_ENDPOINT']
 key_space = 'timeline'
 cassandra_cluster = Cluster(
@@ -42,19 +46,20 @@ cassandra_cluster = Cluster(
 session = cassandra_cluster.connect()
 session.set_keyspace(key_space)
 
-# # - HBase parameter
-# # - create 'relationshipdb', 'n:id, n:group', 'l:source, l:target, l:value'
+# - HBase parameter
+# - create 'relationshipdb', 'n:id, n:group', 'l:source, l:target, l:value'
 hbase_host = app.config['CONFIG_HBASE_ENDPOINT']
 hbase_table = 'relationship'
 
-# # - redis parameter
-#
+# - redis parameter
 redis_port = 6379
 redis_host = app.config['CONFIG_REDIS_ENDPOINT']
 redis_key = 'visitorNumber'
 r = redis.StrictRedis(host=redis_host, port=redis_port, db=0)
 
-# # - mysql parameter
+# - mysql parameter
+# - database
+#   - 'test'
 rds_host = app.config['CONFIG_RDS_ENDPOINT']
 rds_user = app.config['CONFIG_RDS_USER']
 rds_pwd = app.config['CONFIG_RDS_PASSWORD']
@@ -66,8 +71,6 @@ query = ("SELECT * FROM user WHERE username = %s AND password = %s")
 
 sessionDict = {}
 
-#
-#
 @app.route('/totalvisitor', methods=['POST'])
 def add_visitor():
     count = r.get(redis_key)
@@ -83,10 +86,8 @@ def add_visitor():
 @app.route('/authentication', methods=['POST'])
 def authenticate():
     content = request.json
-    print content
     cursor.execute(query, (content['username'], content['password']))
     row = cursor.fetchone()
-    print row
     if row:
         print "find user"
         sessionDict['admin'] = content['username']
@@ -120,8 +121,6 @@ def update_timelinedata():
     ext_link_str = 'www.bittiger.io'
     content = request.json
     date_input = datetime.fromtimestamp(content['time'] / 1000.0)
-    print content
-    print date_input
     session.execute(
         """
         INSERT INTO timeline_data1 (post_time, article_title, content, embed_image_link, external_link)
@@ -146,20 +145,9 @@ def get_relationshipgraph():
     else:
         return jsonify(status=401, message='ERROR')
 
-# @app.route('/', methods=['POST'])
-# def insertRestaurant():
-#     cotent = request.json
-#     # define the data structure
-#     db.products.insert_one({"name": 'Eason', "price": 8, "pubdate": datetime(2013, 8, 1),
-#                             "cover": 'http://www.freeimages.com/assets/183333/1833326510/wood-weel-1444183-m.jpg',
-#                             "likes": 0, "dislikes": 0})
-
 @app.route('/gallery')
 def get_gallery():
     if len(sessionDict) > 0:
-        # client = MongoClient('mongodb://%s:%s' % (mongodb_host, mongodb_port))
-        # db = client.gallery
-        # db.product.insert_one({})
         mongo_data = []
         for product in db.products.find({}, {"_id": 0}):
             mongo_data.append(product)
