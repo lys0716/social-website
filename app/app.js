@@ -26,7 +26,7 @@ config(function($stateProvider, $urlRouterProvider) {
     templateUrl: './signin/signin.html',
     controller: 'SignInCtrl'
   }
-  var signUpState = {
+  var galleryState = {
     name: 'gallery',
     url: '/gallery',
     templateUrl: './gallery/gallery.html',
@@ -49,7 +49,7 @@ config(function($stateProvider, $urlRouterProvider) {
   }
   $stateProvider.state(homeState);
   $stateProvider.state(signInState);
-  $stateProvider.state(signUpState);
+  $stateProvider.state(galleryState);
   $stateProvider.state(d3State);
   $stateProvider.state(userInfoState);
 });

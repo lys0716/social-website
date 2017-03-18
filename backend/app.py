@@ -12,14 +12,18 @@ import simplejson as json
 import os
 from flask_cors import CORS, cross_origin
 from datetime import datetime
+
+
 app = Flask(__name__)
 CORS(app)
+app.config.from_envvar('ENV_CONFIG_FILE')
 debug = True
+
 # - mongodb parameter
-mongodb_host = '52.204.41.212'
-mongodb_port = '27017'
-client = MongoClient('mongodb://%s:%s' % (mongodb_host, mongodb_port))
+mongodb_endpoint = app.config['CONFIG_MONGODB_ENDPOINT']
+client = MongoClient('mongodb://%s' % (mongodb_endpoint))
 db = client.gallery
+
 # - cassandra parameter
 # - database schema
 # - Schema:
@@ -30,26 +34,32 @@ db = client.gallery
 # contentHtml(cotent)
 # titleContentHtml(embed image)
 # footerContentHtml(externalLink)
-contact_points = '192.168.99.100';
+contact_points = app.config['CONFIG_CASSANDRA_ENDPOINT']
 key_space = 'timeline'
 cassandra_cluster = Cluster(
     contact_points=contact_points.split(',')
 )
 session = cassandra_cluster.connect()
 session.set_keyspace(key_space)
+
 # # - HBase parameter
 # # - create 'relationshipdb', 'n:id, n:group', 'l:source, l:target, l:value'
-hbase_host = '54.208.186.70'
+hbase_host = app.config['CONFIG_HBASE_ENDPOINT']
 hbase_table = 'relationship'
+
 # # - redis parameter
 #
 redis_port = 6379
-redis_host = 'localhost'
+redis_host = app.config['CONFIG_REDIS_ENDPOINT']
 redis_key = 'visitorNumber'
 r = redis.StrictRedis(host=redis_host, port=redis_port, db=0)
+
 # # - mysql parameter
-cnx = mysql.connector.connect(user='root', password='agamemnon0716',
-                              host='127.0.0.1',
+rds_host = app.config['CONFIG_RDS_ENDPOINT']
+rds_user = app.config['CONFIG_RDS_USER']
+rds_pwd = app.config['CONFIG_RDS_PASSWORD']
+cnx = mysql.connector.connect(user=rds_user, password=rds_pwd,
+                              host=rds_host,
                               database='test')
 cursor = cnx.cursor()
 query = ("SELECT * FROM user WHERE username = %s AND password = %s")
@@ -90,7 +100,7 @@ def authenticate():
 def get_timelinedata():
     post_array = []
     if len(sessionDict) > 0:
-        result = session.execute("select * from timeline_data")
+        result = session.execute("select * from timeline_data1")
         for x in result:
             post_array.append(
                 {'badgeClass': 'info',
@@ -114,7 +124,7 @@ def update_timelinedata():
     print date_input
     session.execute(
         """
-        INSERT INTO timeline_data (post_time, article_title, content, embed_image_link, external_link)
+        INSERT INTO timeline_data1 (post_time, article_title, content, embed_image_link, external_link)
         VALUES (%s, %s, %s, %s, %s)
         """,
         (date_input, 'New Heading', content['text'], img_link_str, ext_link_str)
@@ -132,7 +142,6 @@ def get_relationshipgraph():
                 d["nodes"].append({'id': data['n:id'], "group": data['n:group']})
             if 'l:source' in data.keys():
                 d["links"].append({'source': data['l:source'], "target": data['l:target'], 'value': data['l:value']})
-        print d
         return jsonify(d)
     else:
         return jsonify(status=401, message='ERROR')

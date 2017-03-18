@@ -1,7 +1,7 @@
 import happybase
 import simplejson as json
 data = json.loads(open('/Users/yishuanglu/development/python-work-space/helloworld/miserables.json').read())
-hbase_host = '54.208.186.70'
+hbase_host = '52.201.24.238'
 hbase_table = 'relationship'
 connection = happybase.Connection(hbase_host)
 table = connection.table(hbase_table)
