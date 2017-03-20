@@ -28,7 +28,7 @@ source env/bin/activate
 ```
 
 ### Sample Data Ingestion
-# - mongodb
+#### - mongodb
 1. Go to AWS -> EC2 -> Launch instance -> Amazon Linux Image -> start a t2.micro instance
 -> keep default for instance and storage detail -> Add a meaningful tag -> Create a new security group/Use the old one (you must select Type:All traffic/Protocol: All/Port Range:0-65535/Source:Anywhere) -> launch -> select existing key(you must download it first)
 
@@ -94,8 +94,8 @@ db.products.insertMany([
     }
 ])
 
-# - cassandra:
-# - create cassandra container
+#### - cassandra:
+#### - create cassandra container
 docker run -d -p 7199:7199 -p 9042:9042 -p 9160:9160 -p 7001:7001 --name cassandra cassandra:3.9
 
 //cassandra create table
@@ -116,10 +116,10 @@ insert into timeline_data1 (article_title, post_time, content, embed_image_link,
 
 insert into timeline_data1 (article_title, post_time, content, embed_image_link, external_link) values ('Second heading', '2015-05-02 12:30:54.234', 'Hello Eason!', 'http://www.freeimages.com/assets/183333/1833326510/wood-weel-1444183-m.jpg', 'www.google.com')
 
-# - redis:
+#### - redis:
 docker run --name redis -p 6379:6379 -d redis
 
-# - hbase:
+#### - hbase:
 create EMR
 ssh -i [key.pem] ec2-user@[MASTER IP/DNS]
 
